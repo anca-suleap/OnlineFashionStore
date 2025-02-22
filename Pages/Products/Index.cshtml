@@ -1,0 +1,98 @@
+﻿@page
+@model OnlineFashionStore.Pages.Products.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<form method="get">
+    <input type="text" name="SearchString" value="@ViewData["CurrentFilter"]" placeholder="Search clothing items..." />
+    <select name="categoryId">
+        <option value="">All Categories</option>
+        @foreach (var category in (List<OnlineFashionStore.Models.Category>)ViewData["Categories"])
+        {
+            if (ViewData["CurrentCategory"] != null && (int)ViewData["CurrentCategory"] == category.ID)
+            {
+                <option value="@category.ID" selected="selected">@category.CategoryName</option>
+            }
+            else
+            {
+                <option value="@category.ID">@category.CategoryName</option>
+            }
+        }
+    </select>
+    <button type="submit">Apply Filters</button>
+</form>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Product[0].ImageUrl)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Product[0].Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Product[0].Category.CategoryName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Product[0].Price)
+            </th>
+            <th>
+                Sizes
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.ProductD.Products)
+        {
+            <tr>
+                <td>
+                    @if (!string.IsNullOrEmpty(item.ImageUrl))
+                    {
+                        <img src="@item.ImageUrl" alt="@item.Name" style="max-width: 150px; max-height: 150px;" />
+                    }
+                    else
+                    {
+                        <p>No Image</p>
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Category.CategoryName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @if (item.ProductSizes != null && item.ProductSizes.Any())
+                    {
+                        foreach (var size in item.ProductSizes)
+                        {
+                            <span>@size.Size.Name</span>
+
+                            <br />
+                        }
+                    }
+                    else
+                    {
+                        <p>No Sizes</p>
+                    }
+                </td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
