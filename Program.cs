@@ -7,7 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorPages(options =>
 {
-    options.Conventions.AuthorizeFolder("/Products");
+    //options.Conventions.AuthorizeFolder("/Products");
     options.Conventions.AllowAnonymousToPage("/Products/Index");
     options.Conventions.AllowAnonymousToPage("/Products/Details");
 });

@@ -28,7 +28,7 @@ namespace OnlineFashionStore.Pages.Wishlists
            x.Id,
            ProductDisplay = x.Name
        });
-            ViewData["ProductID"] = new SelectList(productList, "ID", "ProductDisplay");
+            ViewData["ProductID"] = new SelectList(productList, "Id", "ProductDisplay");
 
             ViewData["ClientID"] = new SelectList(_context.Client, "ID", "FullName");
             return Page();

@@ -1,0 +1,26 @@
+﻿@page
+@model OnlineFashionStore.Pages.BlogModel
+@{
+    ViewData["Title"] = "Fashion Blog";
+}
+
+<h1 class="text-center">🌟 Fashion Blog 🌟</h1>
+
+<p>Explore the latest fashion trends, industry insights, and iconic style inspirations!</p>
+
+<hr />
+
+<div class="row">
+    @foreach (var site in Model.FashionLinks)
+    {
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">@site.Title</h5>
+                    <p class="card-text">@site.Description</p>
+                    <a href="@site.Url" class="btn btn-primary" target="_blank">Visit Website</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>
